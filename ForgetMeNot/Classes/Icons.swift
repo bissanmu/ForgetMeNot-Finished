@@ -38,12 +38,19 @@ enum Icons: Int {
   
   func name() -> String {
     switch self {
-    case .bag: return "Icon_Bag"
-    case .brain: return "Icon_Brain"
-    case .cat: return "Icon_Cat"
-    case .glasses: return "Icon_Glasses"
-    case .key: return "Icon_Key"
-    case .wallet: return "Icon_Wallet"
+//    case .bag: return "Icon_Bag"
+//    case .brain: return "Icon_Brain"
+//    case .cat: return "Icon_Cat"
+//    case .glasses: return "Icon_Glasses"
+//    case .key: return "Icon_Key"
+//    case .wallet: return "Icon_Wallet"
+        
+    case .bag: return "10F"
+    case .brain: return "11F"
+    case .cat: return "12F"
+    case .glasses: return "13F"
+    case .key: return "14F"
+    case .wallet: return "15F"
     }
   }
   

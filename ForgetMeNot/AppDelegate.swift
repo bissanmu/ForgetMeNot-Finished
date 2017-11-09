@@ -63,11 +63,23 @@ extension AppDelegate : CLLocationManagerDelegate {
         
             let content = UNMutableNotificationContent()
             content.title = "Forget Me Not"
-            content.body = "Are you forgetting something?"
+            content.body = "(didEnterRegion)"
             content.sound = .default()
         
             let request = UNNotificationRequest(identifier: "ForgetMeNot", content: content, trigger: nil)
             UNUserNotificationCenter.current().add(request, withCompletionHandler: nil)
     }
+    
+//    func locationManager(_ manager: CLLocationManager, didExitRegion region: CLRegion) {
+//        guard region is CLBeaconRegion else { return }
+//        
+//        let content = UNMutableNotificationContent()
+//        content.title = "Forget Me Not"
+//        content.body = "(didExitRegion)"
+//        content.sound = .default()
+//        
+//        let request = UNNotificationRequest(identifier: "ForgetMeNot", content: content, trigger: nil)
+//        UNUserNotificationCenter.current().add(request, withCompletionHandler: nil)
+//    }
 }
 
