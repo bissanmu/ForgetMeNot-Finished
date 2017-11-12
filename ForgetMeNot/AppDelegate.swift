@@ -21,6 +21,7 @@
  */
 
 import UIKit
+import Firebase
 import UserNotifications
 import CoreLocation
 
@@ -32,6 +33,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
   
   func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplicationLaunchOptionsKey: Any]?) -> Bool {
     locationManager.delegate = self
+    
+        FIRApp.configure()
     
     // Request permission to send notifications
     let center = UNUserNotificationCenter.current()
@@ -62,8 +65,8 @@ extension AppDelegate : CLLocationManagerDelegate {
             guard region is CLBeaconRegion else { return }
         
             let content = UNMutableNotificationContent()
-            content.title = "Forget Me Not"
-            content.body = "(didEnterRegion)"
+            content.title = "11월 둘쨔주 금요일"
+            content.body = "오늘은 금요일입니다. 다들 불금 보내세요~!"
             content.sound = .default()
         
             let request = UNNotificationRequest(identifier: "ForgetMeNot", content: content, trigger: nil)
