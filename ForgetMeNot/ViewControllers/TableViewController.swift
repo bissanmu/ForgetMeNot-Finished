@@ -1,17 +1,9 @@
-//
-//  TableViewController.swift
-//  ForgetMeNot
-//
-//  Created by admin on 2017. 11. 9..
-//  Copyright © 2017년 Ray Wenderlich. All rights reserved.
-//
-
 import UIKit
 import Firebase
 import CoreLocation
 
 class TableViewController: UIViewController, UITableViewDelegate, UITableViewDataSource {
-
+    
     @IBOutlet weak var open: UIBarButtonItem!
     
     @IBOutlet weak var tableView: UITableView!
@@ -32,10 +24,10 @@ class TableViewController: UIViewController, UITableViewDelegate, UITableViewDat
         super.viewDidLoad()
         //self.tableView.backgroundView = UIImageView(image : UIImage(named : "bg.png"))
         self.title = "소식 보기"
-//        open.target = revealViewController()
-//        open.action = Selector("revealToggle:")
-//
-//        self.view.addGestureRecognizer(self.revealViewController().panGestureRecognizer())
+        //        open.target = revealViewController()
+        //        open.action = Selector("revealToggle:")
+        //
+        //        self.view.addGestureRecognizer(self.revealViewController().panGestureRecognizer())
         retrievemessages()
         tableView.refreshControl = UIRefreshControl()
         tableView.refreshControl?.tintColor = UIColor.orange
@@ -43,12 +35,12 @@ class TableViewController: UIViewController, UITableViewDelegate, UITableViewDat
         //self.refreshControl?.attributedTitle = NSAttributedString(string: "Fetching More Data...", attributes: [NSAttributedStringKey.foregroundColor : refreshControl?.tintColor])
         tableView.refreshControl?.addTarget(self, action: #selector(TableViewController.refreshData), for: UIControlEvents.valueChanged)
         
-//        if #available(iOS 10.0, *) {
-//            self.refreshControl = refreshControl
-//        } else {
-//            self.addSubview(refreshControl!)
-//        }
-//
+        //        if #available(iOS 10.0, *) {
+        //            self.refreshControl = refreshControl
+        //        } else {
+        //            self.addSubview(refreshControl!)
+        //        }
+        //
         tableView.reloadData()
         
         searchController.searchResultsUpdater = self
@@ -103,9 +95,30 @@ class TableViewController: UIViewController, UITableViewDelegate, UITableViewDat
         return messageArray.count
     }
     
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        
+         if searchController.isActive && searchController.searchBar.text != "" {
+            //mainImage 필드가 0이면 showDetailA 세그로 연결
+            if(filterMessages[indexPath.row].mainImage.replacingOccurrences(of: " ", with: "") == "") {
+                performSegue(withIdentifier: "showDetailA", sender: self)
+            }else{
+                performSegue(withIdentifier: "showDetailB", sender: self)
+            }
+         }else{
+            //mainImage 필드가 0이면 showDetailA 세그로 연결
+            if(messageArray[indexPath.row].mainImage.replacingOccurrences(of: " ", with: "") == "") {
+                performSegue(withIdentifier: "showDetailA", sender: self)
+            }else{
+                performSegue(withIdentifier: "showDetailB", sender: self)
+            }
+            
+        }
+    }
+    
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "reuseIdentifier", for: indexPath) as! PreviewMessageCell
         var urlImage:String = ""
+        
         if searchController.isActive && searchController.searchBar.text != "" {
             cell.previewDate.text = filterMessages[indexPath.row].insDate
             cell.location.text = filterMessages[indexPath.row].location
@@ -125,6 +138,12 @@ class TableViewController: UIViewController, UITableViewDelegate, UITableViewDat
             cell.titleImage.layer.cornerRadius = cell.titleImage.frame.size.width/2
             cell.titleImage.clipsToBounds = true
         }
+        
+        var imageView  = UIImageView(frame:CGRect(x: 0, y: 0, width: 100, height: 200))
+        let image = UIImage(named: "Electricity.png")
+        cell.backgroundColor = UIColor.clear
+        imageView = UIImageView(image:image)
+        cell.backgroundView = imageView
         
         //cell.titleImage.image = UIImage(named : messageArray[indexPath.row].image)
         let URL_IMAGE = URL(string : urlImage)
@@ -173,7 +192,7 @@ class TableViewController: UIViewController, UITableViewDelegate, UITableViewDat
             let image = snapshotValue["image"]!
             let insDate = snapshotValue["insDate"]!
             let location = snapshotValue["location"]!
-            
+            let mainImage = snapshotValue["mainImage"]!
             let message = Message()
             
             message.title = title
@@ -184,7 +203,7 @@ class TableViewController: UIViewController, UITableViewDelegate, UITableViewDat
             message.insDate = insDate
             message.location = location
             message.previewMessage = content
-            
+            message.mainImage = mainImage
             self.messageArray.append(message)
             self.tableView.reloadData()
             
@@ -192,17 +211,17 @@ class TableViewController: UIViewController, UITableViewDelegate, UITableViewDat
     }
     
     // MARK: - Segues
-    //    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-    //        if segue.identifier == "showDetail" {
-    //            if let indexPath = tableView.indexPathForSelectedRow {
-    //                let candy = candies[indexPath.row]
-    //                let controller = (segue.destination as! UINavigationController).topViewController as! DetailViewController
-    //                controller.detailCandy = candy
-    //                controller.navigationItem.leftBarButtonItem = splitViewController?.displayModeButtonItem
-    //                controller.navigationItem.leftItemsSupplementBackButton = true
-    //            }
-    //        }
-    //    }
+//        override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+//            if segue.identifier == "showDetail" {
+//                if let indexPath = tableView.indexPathForSelectedRow {
+//                    let candy = candies[indexPath.row]
+//                    let controller = (segue.destination as! UINavigationController).topViewController as! DetailViewController
+//                    controller.detailCandy = candy
+//                    controller.navigationItem.leftBarButtonItem = splitViewController?.displayModeButtonItem
+//                    controller.navigationItem.leftItemsSupplementBackButton = true
+//                }
+//            }
+//        }
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         
@@ -211,8 +230,9 @@ class TableViewController: UIViewController, UITableViewDelegate, UITableViewDat
         var previewTitle:String = ""
         var previewContent:String = ""
         var url_image:String = ""
+        var mainImage:String = ""
         
-        if segue.identifier == "showDetail" {
+        if segue.identifier == "showDetailA" {
             if let indexPath = tableView.indexPathForSelectedRow {
                 if searchController.isActive && searchController.searchBar.text != "" {
                     insDate = filterMessages[indexPath.row].insDate
@@ -238,6 +258,35 @@ class TableViewController: UIViewController, UITableViewDelegate, UITableViewDat
                 }
                 
             }
+        } else if segue.identifier == "showDetailB" {
+            if let indexPath = tableView.indexPathForSelectedRow {
+                if searchController.isActive && searchController.searchBar.text != "" {
+                    insDate = filterMessages[indexPath.row].insDate
+                    location = filterMessages[indexPath.row].location
+                    previewTitle = filterMessages[indexPath.row].title
+                    previewContent = filterMessages[indexPath.row].previewMessage
+                    url_image = filterMessages[indexPath.row].image
+                    mainImage = filterMessages[indexPath.row].mainImage
+                } else {
+                    insDate = messageArray[indexPath.row].insDate
+                    location = messageArray[indexPath.row].location
+                    previewTitle = messageArray[indexPath.row].title
+                    previewContent = messageArray[indexPath.row].previewMessage
+                    url_image = messageArray[indexPath.row].image
+                    mainImage = messageArray[indexPath.row].mainImage
+                }
+                
+                if let controller = segue.destination as? DetailViewController2 {
+                    controller.pmessageTitle = previewTitle
+                    controller.pinsDate = insDate
+                    controller.plocation = location
+                    controller.ptitleImage = url_image
+                    controller.pmessageContent = previewContent
+                    controller.pmainImage = mainImage
+                    
+                }
+                
+            }
         }
     }
 }
@@ -251,6 +300,7 @@ class Message {
     var image:String = ""
     var insDate:String = ""
     var location:String = ""
+    var mainImage:String = ""
 }
 
 extension TableViewController: UISearchResultsUpdating {

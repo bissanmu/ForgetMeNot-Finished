@@ -16,6 +16,7 @@
 		84C4E09C1FB4B0D10008AD5E /* Launch Screen1.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 84C4E09B1FB4B0D10008AD5E /* Launch Screen1.storyboard */; };
 		84C4E09F1FB4B2F10008AD5E /* RectangleBackground.png in Resources */ = {isa = PBXBuildFile; fileRef = 84C4E09D1FB4B2F10008AD5E /* RectangleBackground.png */; };
 		84C4E0A01FB4B2F10008AD5E /* RectangleIcon111.png in Resources */ = {isa = PBXBuildFile; fileRef = 84C4E09E1FB4B2F10008AD5E /* RectangleIcon111.png */; };
+		84C4E0A41FB859940008AD5E /* DetailViewController2.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84C4E0A31FB859940008AD5E /* DetailViewController2.swift */; };
 		C00360541E39747F00234FCD /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = C00360531E39747F00234FCD /* LaunchScreen.storyboard */; };
 		C00360911E3EA86500234FCD /* Icons.swift in Sources */ = {isa = PBXBuildFile; fileRef = C003608A1E3EA86500234FCD /* Icons.swift */; };
 		C00360921E3EA86500234FCD /* Item.swift in Sources */ = {isa = PBXBuildFile; fileRef = C003608B1E3EA86500234FCD /* Item.swift */; };
@@ -39,6 +40,7 @@
 		84C4E09B1FB4B0D10008AD5E /* Launch Screen1.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = "Launch Screen1.storyboard"; sourceTree = "<group>"; };
 		84C4E09D1FB4B2F10008AD5E /* RectangleBackground.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = RectangleBackground.png; path = ../../../../Desktop/ForgetMeNot/RectangleBackground.png; sourceTree = "<group>"; };
 		84C4E09E1FB4B2F10008AD5E /* RectangleIcon111.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = RectangleIcon111.png; path = ../../../../Desktop/ForgetMeNot/RectangleIcon111.png; sourceTree = "<group>"; };
+		84C4E0A31FB859940008AD5E /* DetailViewController2.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = DetailViewController2.swift; path = ../DetailViewController2.swift; sourceTree = "<group>"; };
 		B034284FA486A0A411FAF857 /* Pods-ForgetMeNot.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-ForgetMeNot.release.xcconfig"; path = "Pods/Target Support Files/Pods-ForgetMeNot/Pods-ForgetMeNot.release.xcconfig"; sourceTree = "<group>"; };
 		C00360531E39747F00234FCD /* LaunchScreen.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; name = LaunchScreen.storyboard; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		C003608A1E3EA86500234FCD /* Icons.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Icons.swift; sourceTree = "<group>"; };
@@ -115,6 +117,7 @@
 		C003608E1E3EA86500234FCD /* ViewControllers */ = {
 			isa = PBXGroup;
 			children = (
+				84C4E0A31FB859940008AD5E /* DetailViewController2.swift */,
 				C003608F1E3EA86500234FCD /* AddItemViewController.swift */,
 				C00360901E3EA86500234FCD /* ItemsViewController.swift */,
 				84C4E0941FB487EE0008AD5E /* TableViewController.swift */,
@@ -312,6 +315,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				84C4E0A41FB859940008AD5E /* DetailViewController2.swift in Sources */,
 				C00360941E3EA86500234FCD /* AddItemViewController.swift in Sources */,
 				C00360971E3EA88F00234FCD /* IconCell.swift in Sources */,
 				C00360951E3EA86500234FCD /* ItemsViewController.swift in Sources */,
